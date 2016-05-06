@@ -27,7 +27,6 @@ class ReminderViewController: UIViewController, UITableViewDelegate, UITableView
     override func viewDidAppear(animated: Bool) {
         tasksTableView.delegate = self
         tasksTableView.dataSource = self
-        titleTextField.text=selectedTitle
         tasksTableView.reloadData()
     }
     
@@ -85,7 +84,7 @@ class ReminderViewController: UIViewController, UITableViewDelegate, UITableView
             }
         }
         reminder = Reminder(title: titleTextField.text!, tasks: taskTempArray)
-        if titleText.count != 0 && descriptionArray.count != 0 {
+        if reminder!.title != nil && reminder!.tasks.count != 0 {
             delegate?.passData(reminder!)
         }
     }
