@@ -97,7 +97,6 @@ class MainTableViewController: UITableViewController,ModalReminderViewController
                 }
             }
             let pushView: PushReminderViewController = segue.destinationViewController as! PushReminderViewController
-            
             pushView.reminderPush=reminderArray[selectedRow!]
             pushView.delegate = self
         }
