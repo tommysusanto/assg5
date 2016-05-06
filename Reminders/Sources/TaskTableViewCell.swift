@@ -8,7 +8,9 @@ class TaskTableViewCell: UITableViewCell {
     @IBOutlet weak var buttonImage: UIButton!
     
     override func layoutSubviews() {
-        
+        if completed == true {
+            buttonImage.setImage(UIImage(named:"radio-on"), forState: .Normal)
+        }
     }
     
   @IBAction func radioButtonPressed(sender: AnyObject) {

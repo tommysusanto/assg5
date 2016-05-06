@@ -23,6 +23,10 @@ class ReminderViewController: UIViewController, UITableViewDelegate, UITableView
         tasksTableView.reloadData()
         tasksTableView.delegate = self
         tasksTableView.dataSource = self
+        if let _ = reminder{
+            titleTextField.userInteractionEnabled=false
+            numberOfRows = reminder!.tasks.count
+        }
         titleTextField.text = reminder?.title
     }
     
@@ -46,10 +50,11 @@ class ReminderViewController: UIViewController, UITableViewDelegate, UITableView
         default:
             cell = tableView.dequeueReusableCellWithIdentifier(taskTableViewCellIdentifier)
             let cell = cell as? TaskTableViewCell
-            if let _ = reminder {
-                if indexPath.row<reminder!.tasks.count{
-                    cell?.txtDescription.text = reminder!.tasks[indexPath.row].description
-                    cell?.completed = reminder!.tasks[indexPath.row].completed
+            if let reminderTemp = reminder {
+                let safeIndex = reminderTemp.tasks.indices.contains(indexPath.row)
+                if safeIndex == true {
+                    cell?.txtDescription.text = reminderTemp.tasks[indexPath.row].description
+                    cell?.completed = reminderTemp.tasks[indexPath.row].completed
                 }
             }
         }
