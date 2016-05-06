@@ -5,8 +5,11 @@ class TaskTableViewCell: UITableViewCell {
   var completed = false
 
     @IBOutlet weak var txtDescription: UITextField!
-    
     @IBOutlet weak var buttonImage: UIButton!
+    
+    override func layoutSubviews() {
+        
+    }
     
   @IBAction func radioButtonPressed(sender: AnyObject) {
     if let button = sender as? UIButton {

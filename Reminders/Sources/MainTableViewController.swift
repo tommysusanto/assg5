@@ -1,6 +1,6 @@
 //  Copyright © 2016 HB. All rights reserved.
 
-class MainTableViewController: UITableViewController,ModalReminderViewControllerDelegate {
+class MainTableViewController: UITableViewController,ModalReminderViewControllerDelegate,PushReminderViewControllerDelegate {
     
     @IBOutlet var mainTableView: UITableView!
     let menuTableViewCellId = "MenuTableViewCell"
@@ -9,6 +9,7 @@ class MainTableViewController: UITableViewController,ModalReminderViewController
     var reminderArray: [Reminder] = []
     var displayTitle: [String] = []
     var displayDesc: [String] = []
+    var selectedRow: Int = 0
     
     var numberOfRows = 0
     
@@ -56,7 +57,15 @@ class MainTableViewController: UITableViewController,ModalReminderViewController
          }
          }
          */
-        
+        if indexPath.row<displayTitle.count{
+            let selectedTitle=displayTitle[indexPath.row]
+            for index in 0..<reminderArray.count{
+                if(reminderArray[index].title==selectedTitle)
+                {
+                    selectedRow = index
+                }
+            }
+        }
         tableView.deselectRowAtIndexPath(indexPath, animated: true)
     }
     
@@ -65,22 +74,37 @@ class MainTableViewController: UITableViewController,ModalReminderViewController
             let modalView: ModalReminderViewController = segue.destinationViewController as! ModalReminderViewController
             modalView.delegate = self
         }
+        else if segue.identifier=="seguePush"{
+            let pushView: PushReminderViewController = segue.destinationViewController as! PushReminderViewController
+            pushView.delegate = self
+            pushView.reminderPush=reminderArray[selectedRow]
+        }
+    }
+    
+    
+    func passDataPushView(reminderPush: Reminder) {
+        formatLoadData(reminderPush)
     }
     
     func passDataModalView(reminderModal: Reminder) {
+        formatLoadData(reminderModal)
+    }
+    
+    // This functions loads source data for the table and update the reminderArray accordingly
+    func formatLoadData(reminderInput: Reminder){
         if reminderArray.count==0{
-            reminderArray.append(reminderModal)
+            reminderArray.append(reminderInput)
         }
         else{
             var doesExist = false
             for index1 in 0..<reminderArray.count{
-                if reminderArray[index1].title==reminderModal.title{
-                    reminderArray[index1].tasks = reminderModal.tasks
+                if reminderArray[index1].title==reminderInput.title{
+                    reminderArray[index1].tasks = reminderInput.tasks
                     doesExist = true
                 }
             }
             if doesExist == false {
-                reminderArray.append(reminderModal)
+                reminderArray.append(reminderInput)
             }
         }
         displayTitle=[]
@@ -91,7 +115,6 @@ class MainTableViewController: UITableViewController,ModalReminderViewController
                 displayDesc.append(reminderArray[index1].tasks[index2].description!)
             }
         }
-        print(reminderArray.count)
         numberOfRows=displayDesc.count
         mainTableView.reloadData()
     }

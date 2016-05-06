@@ -16,7 +16,6 @@ class ModalReminderViewController: UIViewController, ReminderViewControllerDeleg
             let reminderVC = segue.destinationViewController as! ReminderViewController
             reminderVC.delegate = self
         }
-        
     }
     // Delegates
     func passData(reminder: Reminder) {

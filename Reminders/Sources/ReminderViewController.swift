@@ -15,19 +15,15 @@ class ReminderViewController: UIViewController, UITableViewDelegate, UITableView
     
     var reminder: Reminder?
     
-    var descriptionArray: [String] = []
-    var titleText: [String] = []
-    var radioButtonArray: [Bool] = []
-    var selectedTitle: String?
-    
     var numberOfRows = 0
     
     // MARK: ViewController Lifecycle
     
     override func viewDidAppear(animated: Bool) {
+        tasksTableView.reloadData()
         tasksTableView.delegate = self
         tasksTableView.dataSource = self
-        tasksTableView.reloadData()
+        titleTextField.text = reminder?.title
     }
     
     // Mark: TableView Delegate and DataSource
@@ -50,10 +46,11 @@ class ReminderViewController: UIViewController, UITableViewDelegate, UITableView
         default:
             cell = tableView.dequeueReusableCellWithIdentifier(taskTableViewCellIdentifier)
             let cell = cell as? TaskTableViewCell
-            let isIndexValid = descriptionArray.indices.contains(indexPath.row)
-            if isIndexValid == true{
-                cell?.txtDescription.text = descriptionArray[indexPath.row]
-                cell?.completed = radioButtonArray[indexPath.row]
+            if let _ = reminder {
+                if indexPath.row<reminder!.tasks.count{
+                    cell?.txtDescription.text = reminder!.tasks[indexPath.row].description
+                    cell?.completed = reminder!.tasks[indexPath.row].completed
+                }
             }
         }
         
