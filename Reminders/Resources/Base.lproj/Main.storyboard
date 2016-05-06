@@ -138,7 +138,7 @@
         <!--Push Reminder View Controller-->
         <scene sceneID="d05-DM-ij7">
             <objects>
-                <viewController id="tue-Oq-s0p" customClass="PushReminderViewController" customModule="Reminders" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="PushReminderViewController" id="tue-Oq-s0p" customClass="PushReminderViewController" customModule="Reminders" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="EAe-RI-Jy7"/>
                         <viewControllerLayoutGuide type="bottom" id="0ny-xu-0DC"/>

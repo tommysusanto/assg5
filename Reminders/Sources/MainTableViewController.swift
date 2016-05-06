@@ -1,5 +1,7 @@
 //  Copyright © 2016 HB. All rights reserved.
 
+import UIKit
+
 class MainTableViewController: UITableViewController,ModalReminderViewControllerDelegate,PushReminderViewControllerDelegate {
     
     @IBOutlet var mainTableView: UITableView!
@@ -9,7 +11,8 @@ class MainTableViewController: UITableViewController,ModalReminderViewController
     var reminderArray: [Reminder] = []
     var displayTitle: [String] = []
     var displayDesc: [String] = []
-    var selectedRow: Int = 0
+    var selectedRow: Int?
+    var selectedTitle: String=""
     
     var numberOfRows = 0
     
@@ -44,6 +47,7 @@ class MainTableViewController: UITableViewController,ModalReminderViewController
         return cell!
     }
     
+    /*
     override func tableView(
         tableView: UITableView,
         didSelectRowAtIndexPath indexPath: NSIndexPath) {
@@ -57,27 +61,45 @@ class MainTableViewController: UITableViewController,ModalReminderViewController
          }
          }
          */
-        if indexPath.row<displayTitle.count{
+        
+        let safeIndex = displayTitle.indices.contains(indexPath.row)
+        if safeIndex == true {
             let selectedTitle=displayTitle[indexPath.row]
             for index in 0..<reminderArray.count{
                 if(reminderArray[index].title==selectedTitle)
                 {
                     selectedRow = index
+                    break
                 }
             }
         }
         tableView.deselectRowAtIndexPath(indexPath, animated: true)
-    }
+    }*/
+    
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier=="modalSegue"{
             let modalView: ModalReminderViewController = segue.destinationViewController as! ModalReminderViewController
             modalView.delegate = self
         }
+        
         else if segue.identifier=="seguePush"{
+            let selectedIndex = self.mainTableView.indexPathForCell(sender as! UITableViewCell)
+            let safeIndex = displayTitle.indices.contains(selectedIndex!.row)
+            if safeIndex == true {
+                let selectedTitle=displayTitle[selectedIndex!.row]
+                for index in 0..<reminderArray.count{
+                    if(reminderArray[index].title==selectedTitle)
+                    {
+                        selectedRow = index
+                        break
+                    }
+                }
+            }
             let pushView: PushReminderViewController = segue.destinationViewController as! PushReminderViewController
+            
+            pushView.reminderPush=reminderArray[selectedRow!]
             pushView.delegate = self
-            pushView.reminderPush=reminderArray[selectedRow]
         }
     }
     
@@ -120,5 +142,3 @@ class MainTableViewController: UITableViewController,ModalReminderViewController
     }
     
 }
-
-import UIKit
