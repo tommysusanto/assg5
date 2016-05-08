@@ -8,12 +8,17 @@
 
 protocol PushReminderViewControllerDelegate{
     func passDataPushView(reminderPush: Reminder)
+    func deleteData(reminderPush: Reminder)
 }
 class PushReminderViewController: UIViewController,ReminderViewControllerDelegate{
     
     var delegate: PushReminderViewControllerDelegate?
     var reminderPush: Reminder?
     
+    @IBAction func deleteClicked(sender: AnyObject) {
+        delegate?.deleteData(reminderPush!)
+        self.navigationController?.popViewControllerAnimated(true)
+    }
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == "sbSeguePush"{
             let reminderVC = segue.destinationViewController as! ReminderViewController

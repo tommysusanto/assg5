@@ -147,19 +147,40 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nM1-6E-Rv7">
-                                <rect key="frame" x="0.0" y="64" width="600" height="536"/>
+                            <stackView opaque="NO" contentMode="scaleToFill" fixedFrame="YES" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="AjX-jq-SjE">
+                                <rect key="frame" x="0.0" y="64" width="240" height="128"/>
+                            </stackView>
+                            <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="CrC-r7-7xh">
+                                <rect key="frame" x="0.0" y="64" width="600" height="44"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="44" id="vI4-u9-gZM"/>
+                                </constraints>
+                                <items>
+                                    <navigationItem title="Reminder" id="P7Y-SG-kuf">
+                                        <barButtonItem key="rightBarButtonItem" systemItem="trash" id="bfg-oc-0RU">
+                                            <connections>
+                                                <action selector="deleteClicked:" destination="tue-Oq-s0p" id="MMi-Pc-d9a"/>
+                                            </connections>
+                                        </barButtonItem>
+                                    </navigationItem>
+                                </items>
+                            </navigationBar>
+                            <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="SXE-8g-tOU">
+                                <rect key="frame" x="0.0" y="108" width="600" height="492"/>
                                 <connections>
-                                    <segue destination="Tjx-mc-3vr" kind="embed" identifier="sbSeguePush" id="cTf-1s-ZW1"/>
+                                    <segue destination="Tjx-mc-3vr" kind="embed" identifier="sbSeguePush" id="Nh7-SY-JY2"/>
                                 </connections>
                             </containerView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="nM1-6E-Rv7" firstAttribute="leading" secondItem="HyL-7h-nYH" secondAttribute="leading" id="5uE-SG-kYh"/>
-                            <constraint firstItem="0ny-xu-0DC" firstAttribute="top" secondItem="nM1-6E-Rv7" secondAttribute="bottom" id="Hyf-iO-Anj"/>
-                            <constraint firstAttribute="trailing" secondItem="nM1-6E-Rv7" secondAttribute="trailing" id="J5m-O9-dPq"/>
-                            <constraint firstItem="nM1-6E-Rv7" firstAttribute="top" secondItem="EAe-RI-Jy7" secondAttribute="bottom" id="qt1-WX-O1z"/>
+                            <constraint firstItem="SXE-8g-tOU" firstAttribute="top" secondItem="CrC-r7-7xh" secondAttribute="bottom" id="750-rZ-X9K"/>
+                            <constraint firstItem="CrC-r7-7xh" firstAttribute="top" secondItem="EAe-RI-Jy7" secondAttribute="bottom" id="AyJ-oC-S5E"/>
+                            <constraint firstItem="SXE-8g-tOU" firstAttribute="leading" secondItem="HyL-7h-nYH" secondAttribute="leading" id="FAN-8E-uKA"/>
+                            <constraint firstAttribute="trailing" secondItem="SXE-8g-tOU" secondAttribute="trailing" id="Ply-AR-1Yq"/>
+                            <constraint firstAttribute="trailing" secondItem="CrC-r7-7xh" secondAttribute="trailing" id="fgx-cw-y42"/>
+                            <constraint firstItem="0ny-xu-0DC" firstAttribute="top" secondItem="SXE-8g-tOU" secondAttribute="bottom" id="foP-Vk-wAj"/>
+                            <constraint firstItem="CrC-r7-7xh" firstAttribute="leading" secondItem="HyL-7h-nYH" secondAttribute="leading" id="u4k-Lj-yFS"/>
                         </constraints>
                     </view>
                 </viewController>
@@ -176,7 +197,7 @@
                         <viewControllerLayoutGuide type="bottom" id="jHL-Em-qJD"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="EqG-gN-2ae">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="536"/>
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="492"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Title" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Nqi-jC-J1a">
@@ -188,7 +209,7 @@
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="ole-uB-Rgq">
-                                <rect key="frame" x="0.0" y="56" width="600" height="436"/>
+                                <rect key="frame" x="0.0" y="56" width="600" height="392"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="TaskTableViewCell" id="qR5-Kl-fmY" customClass="TaskTableViewCell" customModule="Reminders" customModuleProvider="target">
@@ -321,6 +342,6 @@
         <image name="radio-off" width="512" height="512"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="cTf-1s-ZW1"/>
+        <segue reference="Nh7-SY-JY2"/>
     </inferredMetricsTieBreakers>
 </document>

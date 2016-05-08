@@ -13,10 +13,12 @@ class MainTableViewController: UITableViewController,ModalReminderViewController
     var displayDesc: [String] = []
     var selectedRow: Int?
     var selectedTitle: String=""
+    var reminderDelete: Reminder?
     
     var numberOfRows = 0
     
     override func viewDidLoad() {
+        reminderDelete = nil
         mainTableView.delegate = self
         mainTableView.dataSource = self
         mainTableView.reloadData()
@@ -46,7 +48,6 @@ class MainTableViewController: UITableViewController,ModalReminderViewController
         }
         return cell!
     }
-    
     /*
     override func tableView(
         tableView: UITableView,
@@ -75,8 +76,6 @@ class MainTableViewController: UITableViewController,ModalReminderViewController
         }
         tableView.deselectRowAtIndexPath(indexPath, animated: true)
     }*/
-    
-    
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier=="modalSegue"{
             let modalView: ModalReminderViewController = segue.destinationViewController as! ModalReminderViewController
@@ -102,13 +101,33 @@ class MainTableViewController: UITableViewController,ModalReminderViewController
         }
     }
     
-    
     func passDataPushView(reminderPush: Reminder) {
-        formatLoadData(reminderPush)
+        if reminderDelete == nil{
+            self.formatLoadData(reminderPush)
+        }
     }
     
     func passDataModalView(reminderModal: Reminder) {
         formatLoadData(reminderModal)
+    }
+    func deleteData(reminderPush: Reminder) {
+        reminderDelete = reminderPush
+        for index in 0..<reminderArray.count{
+            if reminderPush.title == reminderArray[index].title{
+                reminderArray.removeAtIndex(index)
+                break
+            }
+        }
+        displayTitle=[]
+        displayDesc=[]
+        for index1 in 0..<reminderArray.count{
+            for index2 in 0..<reminderArray[index1].tasks.count{
+                displayTitle.append(reminderArray[index1].title!)
+                displayDesc.append(reminderArray[index1].tasks[index2].description!)
+            }
+        }
+        numberOfRows=displayDesc.count
+        mainTableView.reloadData()
     }
     
     // This functions loads source data for the table and update the reminderArray accordingly
